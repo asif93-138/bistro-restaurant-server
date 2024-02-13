@@ -108,6 +108,10 @@ app.get('/', (req, res) => {
   res.send({"message" : "hi"})
 })
 
+app.get('/test', (req, res) => {
+  res.send(testData)
+})
+
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })

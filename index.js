@@ -1,12 +1,12 @@
-const express = require('express')
-const app = express()
-const cors = require('cors')
+const express = require('express');
+const app = express();
+const cors = require('cors');
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const testData = require('./testData.json');
-const port = 3000
+const port = process.env.PORT || 5000;
 
-app.use(cors())
-app.use(express.json())
+app.use(cors());
+app.use(express.json());
 
 
 
@@ -105,7 +105,7 @@ async function run() {
 run().catch(console.dir);
 
 app.get('/', (req, res) => {
-  res.send({"message" : "hi"})
+  res.send('<h1>Server is running!</h1>')
 })
 
 app.get('/test', (req, res) => {

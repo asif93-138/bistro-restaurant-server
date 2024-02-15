@@ -65,21 +65,6 @@ async function run() {
       const result = await contactC.insertOne(contactObj);
       res.send(result);
     })
-    app.get('/orders', async(req, res) => {
-      const cursor = addedCart.find();
-      const result = await cursor.toArray();
-      res.send(result);
-    })
-    app.get('/payments', async(req, res) => {
-      const cursor = paymentC.find();
-      const result = await cursor.toArray();
-      res.send(result);
-    })
-    app.get('/messages', async(req, res) => {
-      const cursor = contactC.find();
-      const result = await cursor.toArray();
-      res.send(result);
-    })
     app.get('/user/:id', async(req, res) => {
       const id = req.params.id;
       const query = { user: id };

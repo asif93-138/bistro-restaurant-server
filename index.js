@@ -42,13 +42,6 @@ async function run() {
       const result = await addedCart.insertOne(cart);
       res.send(result);
     })
-    app.get('/cart/:id', async(req, res) => {
-      const id = req.params.id;
-      const query = { user: id };
-      const cursor = addedCart.find(query);
-      const result = await cursor.toArray();
-      res.send(result);
-    })
     app.delete('/cart/:id', async(req, res) => {
       const id = req.params.id;
       const query = { _id: new ObjectId(id) };
@@ -59,13 +52,6 @@ async function run() {
       const payment = req.body;
       console.log('payment :', payment);
       const result = await paymentC.insertOne(payment);
-      res.send(result);
-    })
-    app.get('/payment/:id', async(req, res) => {
-      const id = req.params.id;
-      const query = { user: id };
-      const cursor = paymentC.find(query);
-      const result = await cursor.toArray();
       res.send(result);
     })
     app.delete('/payment/:id', async(req, res) => {
@@ -92,6 +78,26 @@ async function run() {
     app.get('/messages', async(req, res) => {
       const cursor = contactC.find();
       const result = await cursor.toArray();
+      res.send(result);
+    })
+    app.get('/user/:id', async(req, res) => {
+      const id = req.params.id;
+      const query = { user: id };
+      const cursor1 = addedCart.find(query);
+      const result1 = await cursor1.toArray();
+      const cursor2 = paymentC.find(query);
+      const result2 = await cursor2.toArray();
+      const result = {"cart": result1,  "payment": result2};
+      res.send(result);
+    })
+    app.get('/admin', async(req, res) => {
+      const cursor1 = addedCart.find();
+      const result1 = await cursor1.toArray();
+      const cursor2 = paymentC.find();
+      const result2 = await cursor2.toArray();
+      const cursor3 = contactC.find();
+      const result3 = await cursor3.toArray();
+      const result = {"orders": result1, "payments": result2, "messages": result3};
       res.send(result);
     })
     // Send a ping to confirm a successful connection
